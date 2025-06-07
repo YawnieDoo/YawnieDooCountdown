@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Yawnie-Doo Awakens</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Baloo+2&display=swap');
+
+    body {
+      margin: 0;
+      font-family: 'Baloo 2', cursive;
+      background: linear-gradient(120deg, #0f0c29, #302b63, #24243e);
+      background-size: 400% 400%;
+      animation: gradientShift 15s ease infinite;
+      color: #f3f3f3;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      font-size: 1.2rem;
+      margin: 0 20px 1rem;
+    }
+
+    #countdown {
+      font-size: 2rem;
+      color: #ffc107;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 1rem 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 0 20px rgba(255, 193, 7, 0.4);
+      margin-bottom: 1rem;
+    }
+
+    #calendar-link {
+      margin-top: 1rem;
+      background: #00e5ff;
+      color: #000;
+      text-decoration: none;
+      padding: 0.7rem 1.5rem;
+      border-radius: 1rem;
+      font-weight: bold;
+      box-shadow: 0 0 15px rgba(0,229,255,0.4);
+      transition: background 0.3s;
+    }
+
+    #calendar-link:hover {
+      background: #1de9b6;
+    }
+
+    #token-address {
+      margin-top: 1.8rem;
+      background: rgba(255, 255, 255, 0.08);
+      padding: 1rem 1.8rem;
+      border-radius: 1.5rem;
+      font-size: 1.05rem;
+      color: #b2ebf2;
+      cursor: pointer;
+      user-select: none;
+      box-shadow: 0 0 20px rgba(0,255,255,0.25);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      animation: sleepyFloat 3s ease-in-out infinite;
+    }
+
+    #token-address:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 25px rgba(0,255,255,0.5);
+    }
+
+    #token-toast {
+      position: fixed;
+      bottom: 20px;
+      background: rgba(0,0,0,0.7);
+      color: #fff;
+      padding: 0.6rem 1.2rem;
+      border-radius: 1rem;
+      font-size: 0.95rem;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 1000;
+    }
+
+    @keyframes sleepyFloat {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-4px); }
+      100% { transform: translateY(0); }
+    }
+
+    .launch-date {
+      font-size: 2.4rem;
+      color: #f6f8fa;
+      text-shadow: 0 0 6px #d1b3ff, 0 0 12px #b089ff;
+      animation: glow-pulse 2.5s ease-in-out infinite, float-dream 6s ease-in-out infinite;
+      margin-top: 0.5rem;
+      display: inline-block;
+      will-change: transform;
+    }
+
+    @keyframes glow-pulse {
+     0% { text-shadow: 0 0 4px #d1b3ff, 0 0 10px #b089ff; }
+     50% {
+    text-shadow: 0 0 12px #e5ccff, 0 0 24px #c2a6ff;
+      }
+     100% {
+    text-shadow: 0 0 4px #d1b3ff, 0 0 10px #b089ff;
+      }
+
+    @keyframes float-dream {
+     0%   { transform: translateY(0); }
+     25%  { transform: translateY(-12px); }
+     50%  { transform: translateY(0); }
+     75%  { transform: translateY(12px); }
+     100% { transform: translateY(0); }
+     }
+   }
+
+    .dream-icon {
+      position: absolute;
+      font-size: 1.5rem;
+      opacity: 0.3;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .dream-icon:hover {
+      opacity: 0.9;
+      text-shadow: 0 0 10px #fff;
+    }
+
+    #dreamLogModal {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(0, 0, 0, 0.9);
+      color: #0ff;
+      padding: 2rem;
+      border-radius: 1rem;
+      max-width: 90%;
+      box-shadow: 0 0 30px rgba(0,255,255,0.3);
+      z-index: 10;
+    }
+
+    #dreamLogModal.pre {
+      font-family: monospace;
+      white-space: pre-wrap;
+      text-align: left;
+    }
+
+    #closeLog {
+      margin-top: 1rem;
+      cursor: pointer;
+      color: #ff4081;
+      font-weight: bold;
+    }
+
+    .star {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background: #fff;
+      border-radius: 50%;
+      opacity: 0.7;
+      animation: floatStar 10s linear infinite;
+    }
+
+    @keyframes floatStar {
+      0% {
+        transform: translateY(0);
+        opacity: 0.8;
+      }
+      100% {
+        transform: translateY(-100vh);
+        opacity: 0;
+      }
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2rem;
+      }
+      #countdown {
+        font-size: 1.4rem;
+        padding: 1rem;
+      }
+      #token-address {
+        font-size: 0.95rem;
+        padding: 0.8rem 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Yawnie-Doo</h1>
+  <p>The dream stirs...</p>
+  <div class="launch-date"> Launching on July 1, 2025</div>
+<br></br>
+  <div class="countdown" id="countdown"></div>
+  <a id="calendar-link" href="https://www.google.com/calendar/render?action=TEMPLATE&text=Yawnie-Doo+Launch&dates=20250701T000000Z/20250701T003000Z&details=Yawnie-Doo+enters+the+dreamscape.&location=Online" target="_blank">🗓️ Add to Calendar</a>
+
+  <!-- Token Address -->
+  <div id="token-address" onclick="copyToken()">[token address] — click to copy</div>
+  <div id="token-toast">✨ Token address copied!</div>
+
+  <!-- Hidden Dream Log Icon -->
+  <div class="dream-icon" id="dreamTrigger" style="bottom: 20px; right: 20px;">🌑</div>
+
+  <!-- Dream Log Modal -->
+  <div id="dreamLogModal">
+    <h2>DREAM LOG: Entry #Z-44</h2>
+    <pre>
+[ SYSTEM LOG -- SECURE NODE // DREAMNET-333 ]
+
+Signal detected... ██████ origin unknown
+Entity: Yawnie-Doo
+Status: Dormant → WAKING
+Est. Manifestation: < 13 nights
+
+>>> Initiating DreamSync Protocol...
+Stand by.
+    </pre>
+    <div id="closeLog">Close</div>
+  </div>
+
+  <!-- Floating Stars -->
+  <script>
+    for (let i = 0; i < 50; i++) {
+      const star = document.createElement('div');
+      star.className = 'star';
+      star.style.left = Math.random() * 100 + 'vw';
+      star.style.top = 100 + Math.random() * 100 + 'vh';
+      star.style.animationDuration = (5 + Math.random() * 10) + 's';
+      star.style.opacity = Math.random();
+      document.body.appendChild(star);
+    }
+  </script>
+
+  <!-- Countdown Script & Dream Modal Logic -->
+  <script>
+    const launchDate = new Date("2025-07-01T00:00:00Z");
+    const countdown = document.getElementById("countdown");
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const diff = launchDate - now;
+
+      if (diff <= 0) {
+        countdown.innerHTML = "🌞 It has awakened.";
+        return;
+      }
+
+      const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const m = Math.floor((diff / 1000 / 60) % 60);
+      const s = Math.floor((diff / 1000) % 60);
+
+      countdown.innerHTML = `⏳ ${d}d ${h}h ${m}m ${s}s`;
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    // Dream Log modal logic
+    const trigger = document.getElementById('dreamTrigger');
+    const modal = document.getElementById('dreamLogModal');
+    const closeBtn = document.getElementById('closeLog');
+
+    const dreamSound = new Audio('https://cdn.pixabay.com/download/audio/2022/07/22/audio_2b1b6de21b.mp3?filename=dream-glow-113669.mp3');
+
+    trigger.addEventListener('click', () => {
+      modal.style.display = 'block';
+      dreamSound.play();
+    });
+
+    closeBtn.addEventListener('click', () => {
+      modal.style.display = 'none';
+    });
+
+    // Token address copy
+    function copyToken() {
+      const dummy = document.createElement('textarea');
+      dummy.value = '[token address]';
+      document.body.appendChild(dummy);
+      dummy.select();
+      document.execCommand('copy');
+      document.body.removeChild(dummy);
+
+      const toast = document.getElementById('token-toast');
+      toast.style.opacity = 1;
+      setTimeout(() => { toast.style.opacity = 0; }, 2000);
+    }
+  </script>
+</body>
+</html>
