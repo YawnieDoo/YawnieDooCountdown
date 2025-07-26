@@ -218,7 +218,7 @@
   <a id="calendar-link" href="https://www.google.com/calendar/render?action=TEMPLATE&text=Yawnie-Doo+Launch&dates=20250820T000000Z/20250820T003000Z&details=Yawnie-Doo+enters+the+dreamscape.&location=Online" target="_blank">🗓️ Add to Calendar</a>
 
   <!-- Token Address -->
-  <div id="token-address" onclick="copyToken()">DR6DFDxix36ZRAA13GGCtLcqsuLjA6JLmuhcjeAS7mpj</div>
+  <div id="token-address" onclick="copyToken()"></div>
   <div id="token-toast">✨ Token address copied!</div>
 
   <!-- Hidden Dream Log Icon -->
@@ -298,7 +298,7 @@ Stand by.
     // Token address copy
     function copyToken() {
       const dummy = document.createElement('textarea');
-      dummy.value = 'DR6DFDxix36ZRAA13GGCtLcqsuLjA6JLmuhcjeAS7mpj';
+      dummy.value = '';
       document.body.appendChild(dummy);
       dummy.select();
       document.execCommand('copy');
